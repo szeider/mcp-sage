@@ -56,8 +56,7 @@ stderr / return values, native interrupt support, and robust multi-line input.
 It injects a `KernelSpec` directly into the `KernelManager`, so SageMath's
 bundled Python runs with ipykernel without touching the user's Jupyter
 configuration. On session start the server imports `sage.all`, making all Sage
-functions immediately available. See `REPL_TOOL_SPEC.md` for the full tool
-specification.
+functions immediately available. See `SPEC.md` for the full tool specification.
 
 ## Requirements
 
