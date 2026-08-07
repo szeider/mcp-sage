@@ -1,4 +1,4 @@
-# sage-mcp
+# mcp-sage
 
 An MCP server providing persistent [SageMath](https://www.sagemath.org) sessions
 to any MCP-compatible host: Claude Code, Claude Desktop, Cursor, or an agent
@@ -11,10 +11,11 @@ state across calls, enabling iterative mathematical exploration.
 
 ## Quickstart
 
-The server is a single file using UV's inline dependency syntax (PEP 723):
+Installed from [PyPI](https://pypi.org/project/mcp-sage/) (the package is
+`mcp-sage`; the unrelated `sage-mcp` on PyPI is a different project):
 
 ```bash
-uv run sage_repl_server.py
+uvx mcp-sage
 ```
 
 Claude Code / Claude Desktop config (`.mcp.json` or `~/.claude.json`):
@@ -23,11 +24,18 @@ Claude Code / Claude Desktop config (`.mcp.json` or `~/.claude.json`):
 {
   "mcpServers": {
     "sage-repl": {
-      "command": "uv",
-      "args": ["run", "/path/to/sage_repl_server.py"]
+      "command": "uvx",
+      "args": ["mcp-sage"]
     }
   }
 }
+```
+
+Alternatively, the server is a single file using UV's inline dependency syntax
+(PEP 723), so a checkout runs without installation:
+
+```bash
+uv run sage_repl_server.py
 ```
 
 An optional `--directory /path/to/workdir` argument sets the server's working

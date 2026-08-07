@@ -1,0 +1,2 @@
+[console_scripts]
+mcp-sage = sage_repl_server:cli

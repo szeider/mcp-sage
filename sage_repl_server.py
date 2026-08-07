@@ -349,7 +349,7 @@ async def main():
         await server.run(read, write, server.create_initialization_options())
 
 
-if __name__ == "__main__":
+def cli():
     parser = argparse.ArgumentParser(description="Sage REPL MCP Server")
     parser.add_argument(
         "--directory",
@@ -363,3 +363,7 @@ if __name__ == "__main__":
         os.chdir(args.directory)
 
     asyncio.run(main())
+
+
+if __name__ == "__main__":
+    cli()
