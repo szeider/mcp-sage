@@ -78,8 +78,11 @@ API; pinned `<2`), `jupyter_client`, `ipykernel`.
 
 This server was built for and used in the experiments of:
 
+> David Seka and Stefan Szeider.
 > *Neurosymbolic Discovery of Algebraic Graph Constructions.*
-> NeSy 2026. (Full citation and archive DOI to appear.)
+> NeSy 2026 (20th International Conference on Neurosymbolic Learning and
+> Reasoning), PMLR vol. 284.
+> Supplementary archive: <https://doi.org/10.5281/zenodo.21850460>
 
 ## License
 
