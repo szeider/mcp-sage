@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "mcp>=1.0.0,<2",
+#     "mcp>=1.1.3,<2",
 #     "jupyter_client>=8.0.0",
 #     "ipykernel>=6.0.0",
 # ]
@@ -43,6 +43,7 @@ import atexit
 import os
 import re
 import shutil
+from importlib.metadata import PackageNotFoundError, version
 from queue import Empty
 from typing import Any
 
@@ -183,7 +184,12 @@ atexit.register(cleanup)
 
 # --- MCP Server ---
 
-server = Server("sage-repl")
+try:
+    __version__ = version("mcp-sage")
+except PackageNotFoundError:  # run as a script (uv run sage_repl_server.py)
+    __version__ = "unknown"
+
+server = Server("sage-repl", version=__version__)
 
 
 @server.list_tools()
@@ -281,7 +287,8 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 )
             ]
         except Exception as e:
-            return [TextContent(type="text", text=f"Failed to start session: {e}")]
+            # raised, so that the result has isError=true
+            raise RuntimeError(f"Failed to start session: {e}") from e
 
     elif name == "sage_exec":
         session_id = arguments.get("session_id", "default")
@@ -293,7 +300,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             try:
                 sessions[session_id] = SageKernel()
             except Exception as e:
-                return [TextContent(type="text", text=f"Failed to start session: {e}")]
+                raise RuntimeError(f"Failed to start session: {e}") from e
 
         kernel = sessions[session_id]
         output = await asyncio.to_thread(kernel.execute, code, timeout)
